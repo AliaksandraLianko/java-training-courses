@@ -47,7 +47,7 @@ public class Nominator {
     }
 
     public void nominate(Nominee nominee, Award award) {
-        System.out.println("Nominates:" + nominee.getName());
+        System.out.println(name + "Nominates:" + nominee.getName());
         nominee.receiveAward(award);
     }
 
@@ -107,23 +107,25 @@ public class Nominator {
         Float amountLimit = nominee.getNomineeAwardAmountLimit();
         int comparison = currentAwardAmount.compareTo(amountLimit);
         comparison = comparison>0? 1:comparison<0? -1: comparison;
-        switch (comparison) {
-            case -1:
-                System.out.println("Give award");
-                currentAwardAmount += award.getValue();
-                break;
-            case 0:
-                System.out.println("Last award");
-                currentAwardAmount += award.getValue();
-                break;
-            case 1:
-                System.out.println("No award");
-                currentAwardAmount += award.getValue();
-                break;
-            default:
-                System.out.println("Nothing");
+        while (currentAwardAmount<=nominee.getNomineeAwardAmountLimit()) {
+            switch (comparison) {
+                case -1:
+                    System.out.println("Give award");
+                    currentAwardAmount += award.getValue();
+                    break;
+                case 0:
+                    System.out.println("Last award");
+                    currentAwardAmount += award.getValue();
+                    break;
+                case 1:
+                    System.out.println("No award");
+                    break;
+                default:
+                    System.out.println("Nothing");
 
+            }
         }
+        System.out.println("Total amount of given awards is " + currentAwardAmount);
 
 
     }

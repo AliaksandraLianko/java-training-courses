@@ -61,9 +61,9 @@ public class Main {
 
 
 
-        //nominator1.nominateTillReachNomineeAwardQuantityLimit(nominee4, award1);
-        //nominator1.nominateTillReachNominatorAwardQuantityLimit(nominee4, award1);
-        //nominator1.nominateTillReachNominatorAwardAmountLimit(nominee4, award1);
+        nominator1.nominateTillReachNomineeAwardQuantityLimit(nominee4, award1);
+        nominator1.nominateTillReachNominatorAwardQuantityLimit(nominee4, award1);
+        nominator1.nominateTillReachNominatorAwardAmountLimit(nominee4, award1);
         nominator1.nominateTillReachNomineeAwardAmountLimit(nominee4, award1);
     }
 }
