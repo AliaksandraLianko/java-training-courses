@@ -58,25 +58,23 @@ public class Nominee {
         }
     }
 
-    public int population = 3;
-
-    Random random = new Random();
-    public int z = random.nextInt(100);
-    public double c = random.nextDouble();
-    double newDouble = new BigDecimal(c).setScale(2, RoundingMode.UP).doubleValue();
-
     public double newFormula(Award award) {
-        System.out.println("z = " + z);
-        System.out.println("c = " + newDouble);
-        double a = (Math.pow(z,2)*award.getValue()*(1-award.getValue()));
-        double b = Math.pow(newDouble,2);
-        double quantity = (a/b)/(1+(((a/b)-1)/population));
+        int population = 3;
+        Random random = new Random();
+        int randomIntNumber = random.nextInt(100);
+        double randomDoubleNumber = random.nextDouble();
+        double newDouble = new BigDecimal(randomDoubleNumber).setScale(2, RoundingMode.UP).doubleValue();
+        System.out.println("randomIntNumber = " + randomIntNumber);
+        System.out.println("randomDoubleNumber = " + newDouble);
+        double firstPartOfFormula = (Math.pow(randomIntNumber,2)*award.getValue()*(1-award.getValue()));
+        double secondPartOfFormula = Math.pow(newDouble,2);
+        double quantity = (firstPartOfFormula/secondPartOfFormula)/(1+(((firstPartOfFormula/secondPartOfFormula)-1)/population));
 
-        System.out.println("a = " + ((Math.pow(z,2)*award.getValue()*(1-award.getValue()))));
-        System.out.println("b = " + (Math.pow(newDouble,2)));
-        System.out.println("Result calculated by simplified formula: " + (a/b)/(1+(((a/b)-1)/population)));
-        System.out.println("Quantity equals: " + ((Math.pow(z,2)*award.getValue()*(1-award.getValue()))/(Math.pow(newDouble,2)))
-                /(1 + ((((Math.pow(z,2)*award.getValue()*(1-award.getValue()))/(Math.pow(newDouble,2)))-1)/population)));
+        System.out.println("firstPartOfFormula = " + firstPartOfFormula);
+        System.out.println("secondPartOfFormula = " + secondPartOfFormula);
+        System.out.println("Result calculated by simplified formula: " + quantity);
+        System.out.println("Quantity equals: " + ((Math.pow(randomIntNumber,2)*award.getValue()*(1-award.getValue()))/(Math.pow(newDouble,2)))
+                /(1 + ((((Math.pow(randomIntNumber,2)*award.getValue()*(1-award.getValue()))/(Math.pow(newDouble,2)))-1)/population)));
 
         return quantity;
     }
