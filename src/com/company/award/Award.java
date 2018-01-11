@@ -1,5 +1,7 @@
 package com.company.award;
 
+
+
 public class Award {
     static {
         System.out.println("Static init block for Award");

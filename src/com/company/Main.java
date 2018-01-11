@@ -3,6 +3,8 @@ package com.company;
 import com.company.award.Award;
 import com.company.nominator.Nominator;
 import com.company.nominee.Nominee;
+import com.company.utils.FormulaCalculation;
+import com.company.utils.NominationHelper;
 
 public class Main {
 
@@ -16,21 +18,23 @@ public class Main {
 
         Nominator nominator = new Nominator("Vlad");
 
-        nominator.nominate(nominee1, award1);
-        nominator.nominate(nominee2, award1);
-        nominator.nominate(nominee3, award1);
-        nominator.nominate(nominee1, award2);
-        nominator.nominate(nominee2, award2);
-        nominator.nominate(nominee3, award2);
+        NominationHelper nominatorHelper = new NominationHelper();
 
-        nominee1.newFormula(award1);
-        nominee2.newFormula(award1);
-        nominee3.newFormula(award1);
+        nominatorHelper.nominate(nominee1, award1, nominator);
+        nominatorHelper.nominate(nominee2, award1, nominator);
+        nominatorHelper.nominate(nominee3, award1, nominator);
+        nominatorHelper.nominate(nominee1, award2, nominator);
+        nominatorHelper.nominate(nominee2, award2, nominator);
+        nominatorHelper.nominate(nominee3, award2, nominator);
 
+        FormulaCalculation formulaCalculation = new FormulaCalculation();
+        formulaCalculation.newFormula(award1);
+        formulaCalculation.newFormula(award1);
+        formulaCalculation.newFormula(award1);
 
-        double firstNominee = nominee1.newFormula(award1);
-        double secondNominee = nominee2.newFormula(award1);
-        double thirdNominee = nominee3.newFormula(award1);
+        double firstNominee = formulaCalculation.newFormula(award1);
+        double secondNominee = formulaCalculation.newFormula(award1);
+        double thirdNominee = formulaCalculation.newFormula(award1);
 
         System.out.println("Quantity for the first nominee is " + firstNominee);
         System.out.println("Quantity for the second nominee is " + secondNominee);
@@ -58,12 +62,9 @@ public class Main {
         Nominator nominator1 = new Nominator("Emilie", 10, 500);
         Nominee nominee4 = new Nominee("Sarrah", 15, 300);
 
-
-
-
-        nominator1.nominateTillReachNomineeAwardQuantityLimit(nominee4, award1);
-        nominator1.nominateTillReachNominatorAwardQuantityLimit(nominee4, award1);
-        nominator1.nominateTillReachNominatorAwardAmountLimit(nominee4, award1);
-        nominator1.nominateTillReachNomineeAwardAmountLimit(nominee4, award1);
+        nominatorHelper.nominateTillReachNominatorAwardQuantityLimit(nominee4, award1, nominator1);
+        nominatorHelper.nominateTillReachNominatorAwardAmountLimit(nominee4, award1, nominator1);
+        nominatorHelper.nominateTillReachNomineeAwardAmountLimit(nominee4, award1);
+        nominatorHelper.nominateTillReachNomineeAwardQuantityLimit(nominee4, award1, nominator1);
     }
 }
