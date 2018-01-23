@@ -6,7 +6,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Random;
 
-public class FormulaCalculation {
+public class FormulaCalculationHelper {
 
     /**
      * This method recalculates the initial award value through the formula and returns updated award value

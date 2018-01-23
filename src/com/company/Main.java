@@ -3,12 +3,16 @@ package com.company;
 import com.company.award.Award;
 import com.company.nominator.Nominator;
 import com.company.nominee.Nominee;
-import com.company.utils.FormulaCalculation;
+import com.company.utils.FormulaCalculationHelper;
 import com.company.utils.NominationHelper;
 
 public class Main {
 
     public static void main(String[] args) {
+        /**
+         * Objects nominee, award, nominator, nominatorHelper and formulaCalculationHelper are created
+         */
+
         Nominee nominee1 = new Nominee("Emma");
         Nominee nominee2 = new Nominee("Jane");
         Nominee nominee3 = new Nominee("Melanie");
@@ -27,14 +31,14 @@ public class Main {
         nominatorHelper.nominate(nominee2, award2, nominator);
         nominatorHelper.nominate(nominee3, award2, nominator);
 
-        FormulaCalculation formulaCalculation = new FormulaCalculation();
-        formulaCalculation.newFormula(award1);
-        formulaCalculation.newFormula(award1);
-        formulaCalculation.newFormula(award1);
+        FormulaCalculationHelper formulaCalculationHelper = new FormulaCalculationHelper();
+        formulaCalculationHelper.newFormula(award1);
+        formulaCalculationHelper.newFormula(award1);
+        formulaCalculationHelper.newFormula(award1);
 
-        double firstNominee = formulaCalculation.newFormula(award1);
-        double secondNominee = formulaCalculation.newFormula(award1);
-        double thirdNominee = formulaCalculation.newFormula(award1);
+        double firstNominee = formulaCalculationHelper.newFormula(award1);
+        double secondNominee = formulaCalculationHelper.newFormula(award1);
+        double thirdNominee = formulaCalculationHelper.newFormula(award1);
 
         System.out.println("Quantity for the first nominee is " + firstNominee);
         System.out.println("Quantity for the second nominee is " + secondNominee);
@@ -59,8 +63,8 @@ public class Main {
             System.out.println(nominee1.getName() + "'s award quantity " + firstNominee + " is not the smallest ");
         }
 
-        Nominator nominator1 = new Nominator("Emilie", 10, 500);
-        Nominee nominee4 = new Nominee("Sarrah", 15, 300);
+        Nominator nominator1 = new Nominator("Emilie", 10, 500, 0);
+        Nominee nominee4 = new Nominee("Sarrah", 15, 300, 0);
 
         nominatorHelper.nominateTillReachNominatorAwardQuantityLimit(nominee4, award1, nominator1);
         nominatorHelper.nominateTillReachNominatorAwardAmountLimit(nominee4, award1, nominator1);

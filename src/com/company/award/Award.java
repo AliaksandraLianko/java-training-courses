@@ -11,6 +11,9 @@ public class Award {
     }
 
     private final int value;
+    /**
+     * Soli is a coefficient to calculate final award value
+     */
     private double soli;
 
     public Award(int value) {

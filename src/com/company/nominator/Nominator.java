@@ -1,49 +1,40 @@
 package com.company.nominator;
 
 
+import com.company.award.Award;
+import com.company.person.Person;
 
-public class Nominator {
+public class Nominator extends Person {
     static {
         System.out.println("Static init block for Nominator");
     }
 
-    private String name;
-    private Integer nominatorAwardQuantityLimit;
-    private float nominatorAwardAmountLimit;
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setNominatorAwardQuantityLimit(Integer nominatorAwardQuantityLimit) {
-        this.nominatorAwardQuantityLimit = nominatorAwardQuantityLimit;
-    }
-
-    public void setNominatorAwardAmountLimit(float nominatorAwardAmountLimit) {
-        this.nominatorAwardAmountLimit = nominatorAwardAmountLimit;
-    }
-
-    public String getName() {
-
-        return name;
-    }
-
-    public Integer getNominatorAwardQuantityLimit() {
-        return nominatorAwardQuantityLimit;
-    }
-
-    public float getNominatorAwardAmountLimit() {
-        return nominatorAwardAmountLimit;
-    }
+    private int numberOfGivenAwards;
 
     public Nominator(String name) {
-        this.name = name;
+        super(name);
     }
 
-    public Nominator(String name, Integer nominatorAwardQuantityLimit, float nominatorAwardAmountLimit) {
-        this.name = name;
-        this.nominatorAwardQuantityLimit = nominatorAwardQuantityLimit;
-        this.nominatorAwardAmountLimit = nominatorAwardAmountLimit;
+    public Nominator(String name, int numberOfGivenAwards) {
+        super(name);
+        this.numberOfGivenAwards = numberOfGivenAwards;
     }
+
+    public Nominator(String name, Integer awardQuantityLimit, float awardAmountLimit, int numberOfGivenAwards) {
+        super(name, awardQuantityLimit, awardAmountLimit);
+        this.numberOfGivenAwards = numberOfGivenAwards;
+    }
+     @Override
+    public void receiveAward(Award award) {
+         if (award.getSoli() == 0.0) {
+             System.out.println("Award value calculated without soli: " + award.getValue());
+         }
+         else {
+             System.out.println("Award value calculated with soli: " + award.getValue() * award.getSoli());
+             System.out.println("Soli: " + award.getSoli());
+             System.out.println("Decreased amount: " + ((award.getValue() - award.getValue() * award.getSoli())/award.getValue())*100 + "%");
+         }
+         System.out.println("Nominator " + getName() + " gives award" );
+     }
+
 }

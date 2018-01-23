@@ -3,25 +3,11 @@ package com.company.utils;
 import com.company.award.Award;
 import com.company.nominator.Nominator;
 import com.company.nominee.Nominee;
+import com.company.person.Person;
 
 public class NominationHelper {
 
-    /**
-     * This method calculates the award value
-     * If soli factor is not defined, message with initial award value is displayed in console
-     * If soli factor is defined, award value is recalculated. Updated award value, soli factor and percent of change in award value are displayed in console
-     * @param award the award object
-     */
-    private void receiveAward(Award award) {
-        if (award.getSoli() == 0.0) {
-            System.out.println("Award value calculated without soli: " + award.getValue());
-        }
-        else {
-            System.out.println("Award value calculated with soli: " + award.getValue() * award.getSoli());
-            System.out.println("Soli: " + award.getSoli());
-            System.out.println("Decreased amount: " + ((award.getValue() - award.getValue() * award.getSoli())/award.getValue())*100 + "%");
-        }
-    }
+
 
     /**
      * This method creates nomination for award from nominator to nominee and calls receiveAward method to calculate award value
@@ -29,11 +15,11 @@ public class NominationHelper {
      * @param award       the award object
      * @param nominator   User who creates the award
      */
-    public void nominate(Nominee nominee, Award award, Nominator nominator) {
-             System.out.println(nominator.getName() + "Nominates:" + nominee.getName());
-             receiveAward(award);
-    }
 
+    public void nominate(Nominee nominee, Award award, Nominator nominator) {
+        System.out.println(nominator.getName() + "Nominates:" + nominee.getName());
+        nominator.receiveAward(award);
+    }
 
     /**
      * This method creates nominations until defined limit for awards quantity for nominee is not reached
@@ -43,20 +29,19 @@ public class NominationHelper {
      * @param nominator     User who creates the award
      */
     public void nominateTillReachNomineeAwardQuantityLimit(Nominee nominee, Award award, Nominator nominator) {
-        for (int i = 1; i <= nominee.getNomineeAwardQuantityLimit() + 1; i++) {
-
-            if (i < nominee.getNomineeAwardQuantityLimit()) {
-                receiveAward(award);
+        for (int i = 1; i <= nominee.getAwardQuantityLimit() + 1; i++) {
+            if (i < nominee.getAwardQuantityLimit()) {
+                nominee.receiveAward(award);
                 System.out.println(nominator.getName() + " gives award " + i + " to " + nominee.getName());
 
-            } else if (i == nominee.getNomineeAwardQuantityLimit()) {
-                receiveAward(award);
+            } else if (i == nominee.getAwardQuantityLimit()) {
+                nominee.receiveAward(award);
                 System.out.println(nominator.getName() + " gives award " + i + " to " + nominee.getName() + ". This is last award before restriction");
 
             } else {
-                System.out.println("Award quantity limit " + nominee.getNomineeAwardQuantityLimit() + " is reached for recipient " + nominee.getName() + " for awards quantity");
+                System.out.println("Award quantity limit " + nominee.getAwardQuantityLimit() + " is reached for recipient " + nominee.getName() + " for awards quantity");
 
-                System.out.println("Total number of received awards is " + nominee.getNomineeAwardQuantityLimit());
+                System.out.println("Total number of received awards is " + nominee.getAwardQuantityLimit());
             }
         }
     }
@@ -72,13 +57,13 @@ public class NominationHelper {
         int nominationsCount = 1;
         int count = 0;
         do {
-            receiveAward(award);
+            nominator.receiveAward(award);
             count++;
             System.out.println(nominator.getName() + " gives award " + nominationsCount + " to " + nominee.getName());
             nominationsCount++;
-        } while (nominationsCount <= nominator.getNominatorAwardQuantityLimit());
+        } while (nominationsCount <= nominator.getAwardQuantityLimit());
 
-        System.out.println("Award quantity limit " + nominator.getNominatorAwardQuantityLimit() + " is reached for nominator " + nominator.getName() + " for quantity of awards");
+        System.out.println("Award quantity limit " + nominator.getAwardQuantityLimit() + " is reached for nominator " + nominator.getName() + " for quantity of awards");
         System.out.println("Total number of given awards is " + count);
     }
 
@@ -93,13 +78,13 @@ public class NominationHelper {
     public void nominateTillReachNominatorAwardAmountLimit(Nominee nominee, Award award, Nominator nominator) {
         int totalAwardAmountForNominator = 0;
         int count = 0;
-        while (totalAwardAmountForNominator + award.getValue() <= nominator.getNominatorAwardAmountLimit()) {
+        while (totalAwardAmountForNominator + award.getValue() <= nominator.getAwardAmountLimit()) {
             totalAwardAmountForNominator += award.getValue();
-            receiveAward(award);
+            nominator.receiveAward(award);
             count++;
             System.out.println(nominator.getName() + " gives award for " + award.getValue() + " to " + nominee.getName());
         }
-        System.out.println("Award amount limit " + nominator.getNominatorAwardAmountLimit() + " is reached for nominator " + nominator.getName() + " for total amount of awards");
+        System.out.println("Award amount limit " + nominator.getAwardAmountLimit() + " is reached for nominator " + nominator.getName() + " for total amount of awards");
         System.out.println("Total number of given awards is " + count);
     }
 
@@ -113,10 +98,10 @@ public class NominationHelper {
     public void nominateTillReachNomineeAwardAmountLimit(Nominee nominee, Award award) {
         Integer totalAwardAmountForNominee = 0;
         Float currentAwardAmount = (float) (totalAwardAmountForNominee + award.getValue());
-        Float amountLimit = nominee.getNomineeAwardAmountLimit();
+        Float amountLimit = nominee.getAwardAmountLimit();
         int comparison = currentAwardAmount.compareTo(amountLimit);
 
-        while (currentAwardAmount <= nominee.getNomineeAwardAmountLimit()) {
+        while (currentAwardAmount <= nominee.getAwardAmountLimit()) {
             switch (comparison) {
                 case -1:
                     System.out.println("Give award");
