@@ -30,9 +30,7 @@ public class Nominator extends Person {
              System.out.println("Award value calculated without soli: " + award.getValue());
          }
          else {
-             System.out.println("Award value calculated with soli: " + award.getValue() * award.getSoli());
-             System.out.println("Soli: " + award.getSoli());
-             System.out.println("Decreased amount: " + ((award.getValue() - award.getValue() * award.getSoli())/award.getValue())*100 + "%");
+             System.out.println("Error. Soli factor cannot be calculated for nominator" );
          }
          System.out.println("Nominator " + getName() + " gives award" );
      }

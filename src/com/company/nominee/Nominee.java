@@ -27,14 +27,7 @@ public class Nominee extends Person {
 
     @Override
     public void receiveAward(Award award) {
-        if (award.getSoli() == 0.0) {
-            System.out.println("Award value calculated without soli: " + award.getValue());
-        }
-        else {
-            System.out.println("Award value calculated with soli: " + award.getValue() * award.getSoli());
-            System.out.println("Soli: " + award.getSoli());
-            System.out.println("Decreased amount: " + ((award.getValue() - award.getValue() * award.getSoli())/award.getValue())*100 + "%");
-        }
+        super.receiveAward(award);
         System.out.println("Nominee " + getName() + " receives award" );
     }
 }
