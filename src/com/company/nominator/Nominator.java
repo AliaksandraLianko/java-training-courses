@@ -35,4 +35,9 @@ public class Nominator extends Person {
          System.out.println("Nominator " + getName() + " gives award" );
      }
 
+    @Override
+    public boolean isLimitReached(float currentValue, float limit) {
+        return currentValue<=limit;
+    }
+
 }

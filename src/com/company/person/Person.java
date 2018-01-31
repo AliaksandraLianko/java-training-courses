@@ -5,7 +5,7 @@ import com.company.nominator.Nominator;
 import com.company.nominee.Nominee;
 import com.company.utils.NominationHelper;
 
-public class Person {
+public abstract class Person implements OperationsWithLimit{
     private String name;
     /**
      * max number of awards that can be given or received
@@ -67,4 +67,6 @@ public class Person {
             System.out.println("Decreased amount: " + ((award.getValue() - award.getValue() * award.getSoli())/award.getValue())*100 + "%");
         }
     }
+
+    public abstract boolean isLimitReached(float currentValue, float limit);
 }

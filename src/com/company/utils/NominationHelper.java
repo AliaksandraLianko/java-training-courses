@@ -7,8 +7,6 @@ import com.company.person.Person;
 
 public class NominationHelper {
 
-
-
     /**
      * This method creates nomination for award from nominator to nominee and calls receiveAward method to calculate award value
      * @param nominee     User who receives the award
@@ -56,17 +54,16 @@ public class NominationHelper {
     public void nominateTillReachNominatorAwardQuantityLimit(Nominee nominee, Award award, Nominator nominator) {
         int nominationsCount = 1;
         int count = 0;
+        Integer quantityLimit = nominator.getAwardQuantityLimit();
         do {
             nominator.receiveAward(award);
             count++;
             System.out.println(nominator.getName() + " gives award " + nominationsCount + " to " + nominee.getName());
             nominationsCount++;
-        } while (nominationsCount <= nominator.getAwardQuantityLimit());
-
+        } while (nominator.isLimitReached(nominationsCount,quantityLimit));
         System.out.println("Award quantity limit " + nominator.getAwardQuantityLimit() + " is reached for nominator " + nominator.getName() + " for quantity of awards");
         System.out.println("Total number of given awards is " + count);
     }
-
 
     /**
      * This method creates nominations until defined limit for awards amount for nominator is not reached
@@ -78,7 +75,8 @@ public class NominationHelper {
     public void nominateTillReachNominatorAwardAmountLimit(Nominee nominee, Award award, Nominator nominator) {
         int totalAwardAmountForNominator = 0;
         int count = 0;
-        while (totalAwardAmountForNominator + award.getValue() <= nominator.getAwardAmountLimit()) {
+        float awardLimit = nominator.getAwardAmountLimit();
+        while (nominator.isLimitReached(totalAwardAmountForNominator + award.getValue(), awardLimit)) {
             totalAwardAmountForNominator += award.getValue();
             nominator.receiveAward(award);
             count++;
@@ -87,7 +85,6 @@ public class NominationHelper {
         System.out.println("Award amount limit " + nominator.getAwardAmountLimit() + " is reached for nominator " + nominator.getName() + " for total amount of awards");
         System.out.println("Total number of given awards is " + count);
     }
-
 
     /**
      * This method creates nominations until defined limit for awards amount for nominee is not reached
@@ -100,8 +97,7 @@ public class NominationHelper {
         Float currentAwardAmount = (float) (totalAwardAmountForNominee + award.getValue());
         Float amountLimit = nominee.getAwardAmountLimit();
         int comparison = currentAwardAmount.compareTo(amountLimit);
-
-        while (currentAwardAmount <= nominee.getAwardAmountLimit()) {
+        while (nominee.isLimitReached(currentAwardAmount,amountLimit)) {
             switch (comparison) {
                 case -1:
                     System.out.println("Give award");
@@ -116,12 +112,9 @@ public class NominationHelper {
                     break;
                 default:
                     System.out.println("Nothing");
-
             }
         }
-        System.out.println("Total amount of given awards is " + currentAwardAmount);
-
-
+        System.out.println("Award Amount limit is reached");
     }
 
 }
