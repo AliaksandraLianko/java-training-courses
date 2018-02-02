@@ -3,7 +3,6 @@ package com.company.utils;
 import com.company.award.Award;
 import com.company.nominator.Nominator;
 import com.company.nominee.Nominee;
-import com.company.person.Person;
 
 public class NominationHelper {
 
