@@ -68,5 +68,19 @@ public abstract class Person implements OperationsWithLimit{
         }
     }
 
-    public abstract boolean isLimitReached(float currentValue, float limit);
+    public boolean isLimitReached(float currentValue, float limit) {
+        return currentValue<=limit;
+    }
+
+    public void createYosAward (Award award) {
+        receiveAward(award);
+    }
+    public void createYosAward (Award award, Person nominee) {
+        receiveAward(award);
+        System.out.println(nominee.getName() + " received YOS award for " + award.getValue() + "USD");
+
+    }
+
+
+
 }

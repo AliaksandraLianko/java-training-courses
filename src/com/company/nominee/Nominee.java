@@ -37,4 +37,6 @@ public class Nominee extends Person {
         System.out.println("Nominee has received " + numberOfReceivedAwards + " awards");
         return currentValue<=limit;
     }
+
+
 }

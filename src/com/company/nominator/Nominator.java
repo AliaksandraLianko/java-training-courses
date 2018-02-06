@@ -2,6 +2,7 @@ package com.company.nominator;
 
 
 import com.company.award.Award;
+import com.company.nominee.Nominee;
 import com.company.person.Person;
 
 public class Nominator extends Person {
@@ -36,11 +37,11 @@ public class Nominator extends Person {
      }
 
     @Override
-    public boolean isLimitReached(float currentValue, float limit) {
-        numberOfGivenAwards ++;
-        System.out.println("Nominator has given " + numberOfGivenAwards + " awards");
-        return currentValue<=limit;
-
+    public void createYosAward(Award award, Person nominee) {
+          if (award.getValue() >=100) {
+            super.createYosAward(award, nominee);
+        } else {
+            System.out.println("YOS award is generated automatically based on hire date");
+        }
     }
-
 }
