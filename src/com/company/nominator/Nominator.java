@@ -40,8 +40,9 @@ public class Nominator extends Person {
     public void createYosAward(Award award, Person nominee) {
           if (award.getValue() >=100) {
             super.createYosAward(award, nominee);
-        } else {
             System.out.println("YOS award is generated automatically based on hire date");
+        } else {
+            System.out.println("YOS award is not generated due to low award value");
         }
     }
 }
