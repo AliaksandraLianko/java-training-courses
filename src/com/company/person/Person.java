@@ -1,6 +1,7 @@
 package com.company.person;
 
 import com.company.award.Award;
+import com.company.exceptions.SmallAwardAmountException;
 import com.company.nominator.Nominator;
 import com.company.nominee.Nominee;
 import com.company.utils.NominationHelper;
@@ -57,30 +58,41 @@ public abstract class Person implements OperationsWithLimit{
      * If soli factor is defined, award value is recalculated. Updated award value, soli factor and percent of change in award value are displayed in console
      * @param award the award object
      */
-    protected void receiveAward(Award award) {
-        if (award.getSoli() == 0.0) {
-            System.out.println("Award value calculated without soli: " + award.getValue());
+    protected void receiveAward(Award award) throws SmallAwardAmountException {
+
+            if (award.getValue() >= 0) {
+                if (award.getSoli() == 0.0) {
+                    System.out.println("Award value calculated without soli: " + award.getValue());
+                } else {
+                    System.out.println("Award value calculated with soli: " + award.getValue() * award.getSoli());
+                    System.out.println("Soli: " + award.getSoli());
+                    System.out.println("Decreased amount: " + ((award.getValue() - award.getValue() * award.getSoli()) / award.getValue()) * 100 + "%");
+                }
+            } else
+                throw new SmallAwardAmountException("Nominator cannot give award with negative value");
         }
-        else {
-            System.out.println("Award value calculated with soli: " + award.getValue() * award.getSoli());
-            System.out.println("Soli: " + award.getSoli());
-            System.out.println("Decreased amount: " + ((award.getValue() - award.getValue() * award.getSoli())/award.getValue())*100 + "%");
-        }
-    }
 
     public boolean isLimitReached(float currentValue, float limit) {
         return currentValue<=limit;
     }
 
     public void createYosAward (Award award) {
-        receiveAward(award);
+        try {
+            receiveAward(award);
+        }
+        catch (SmallAwardAmountException ex) {
+            System.out.println("Attempt to create award with negative value - award is not created");
+        }
     }
     public void createYosAward (Award award, Person nominee) {
-        receiveAward(award);
-        System.out.println(nominee.getName() + " received YOS award for " + award.getValue() + "USD");
+        try {
+            receiveAward(award);
+            System.out.println(nominee.getName() + " received YOS award for " + award.getValue() + "USD");
+        }
+        catch (SmallAwardAmountException ex) {
+            System.out.println("Attempt to create award with negative value - award is not created");
+        }
 
     }
-
-
 
 }

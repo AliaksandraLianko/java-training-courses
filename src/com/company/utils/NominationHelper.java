@@ -1,8 +1,10 @@
 package com.company.utils;
 
 import com.company.award.Award;
+import com.company.exceptions.SmallAwardAmountException;
 import com.company.nominator.Nominator;
 import com.company.nominee.Nominee;
+import com.company.person.Person;
 
 public class NominationHelper {
 
@@ -13,9 +15,10 @@ public class NominationHelper {
      * @param nominator   User who creates the award
      */
 
-    public void nominate(Nominee nominee, Award award, Nominator nominator) {
+    public void nominate(Nominee nominee, Award award, Nominator nominator) throws SmallAwardAmountException{
         System.out.println(nominator.getName() + "Nominates:" + nominee.getName());
-        nominator.receiveAward(award);
+             nominator.receiveAward(award);
+
     }
 
     /**
@@ -25,7 +28,7 @@ public class NominationHelper {
      * @param award         the award object
      * @param nominator     User who creates the award
      */
-    public void nominateTillReachNomineeAwardQuantityLimit(Nominee nominee, Award award, Nominator nominator) {
+    public void nominateTillReachNomineeAwardQuantityLimit(Nominee nominee, Award award, Nominator nominator){
         for (int i = 1; i <= nominee.getAwardQuantityLimit() + 1; i++) {
             if (i < nominee.getAwardQuantityLimit()) {
                 nominee.receiveAward(award);
@@ -50,7 +53,7 @@ public class NominationHelper {
      * @param award       the award object
      * @param nominator   User who creates the award
      */
-    public void nominateTillReachNominatorAwardQuantityLimit(Nominee nominee, Award award, Nominator nominator) {
+    public void nominateTillReachNominatorAwardQuantityLimit(Nominee nominee, Award award, Nominator nominator) throws SmallAwardAmountException{
         int nominationsCount = 1;
         int count = 0;
         Integer quantityLimit = nominator.getAwardQuantityLimit();
@@ -71,7 +74,7 @@ public class NominationHelper {
      * @param award         the award object
      * @param nominator     User who creates the award
      */
-    public void nominateTillReachNominatorAwardAmountLimit(Nominee nominee, Award award, Nominator nominator) {
+    public void nominateTillReachNominatorAwardAmountLimit(Nominee nominee, Award award, Nominator nominator) throws SmallAwardAmountException{
         int totalAwardAmountForNominator = 0;
         int count = 0;
         float awardLimit = nominator.getAwardAmountLimit();
@@ -91,11 +94,15 @@ public class NominationHelper {
      * @param nominee     User who receives the award
      * @param award       the award object
      */
-    public void nominateTillReachNomineeAwardAmountLimit(Nominee nominee, Award award) {
+
+    public void nominateTillReachNomineeAwardAmountLimit(Person nominee, Award award) {
         Integer totalAwardAmountForNominee = 0;
         Float currentAwardAmount = (float) (totalAwardAmountForNominee + award.getValue());
         Float amountLimit = nominee.getAwardAmountLimit();
         int comparison = currentAwardAmount.compareTo(amountLimit);
+        ((Nominee)nominee).printTestTest(award);
+        Nominee nominee1 = new Nominee("Test");
+        nominee1.printTestTest(award);
         while (nominee.isLimitReached(currentAwardAmount,amountLimit)) {
             switch (comparison) {
                 case -1:

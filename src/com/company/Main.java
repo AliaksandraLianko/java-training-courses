@@ -1,6 +1,7 @@
 package com.company;
 
 import com.company.award.Award;
+import com.company.exceptions.SmallAwardAmountException;
 import com.company.nominator.Nominator;
 import com.company.nominee.Nominee;
 import com.company.person.Person;
@@ -9,7 +10,7 @@ import com.company.utils.NominationHelper;
 
 public class Main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SmallAwardAmountException {
         /**
          * Objects nominee, award, nominator, nominatorHelper and formulaCalculationHelper are created
          */
@@ -67,14 +68,17 @@ public class Main {
         Nominator nominator1 = new Nominator("Emilie", 10, 500, 0);
         Nominee nominee4 = new Nominee("Sarrah", 15, 300, 0);
 
-        //nominatorHelper.nominateTillReachNominatorAwardQuantityLimit(nominee4, award1, nominator1);
-        //nominatorHelper.nominateTillReachNominatorAwardAmountLimit(nominee4, award1, nominator1);
-        //nominatorHelper.nominateTillReachNomineeAwardAmountLimit(nominee4, award1);
-        //nominatorHelper.nominateTillReachNomineeAwardQuantityLimit(nominee4, award1, nominator1);
+        nominatorHelper.nominateTillReachNominatorAwardQuantityLimit(nominee4, award1, nominator1);
+        nominatorHelper.nominateTillReachNominatorAwardAmountLimit(nominee4, award1, nominator1);
+        nominatorHelper.nominateTillReachNomineeAwardAmountLimit(nominee4, award1);
+        nominatorHelper.nominateTillReachNomineeAwardQuantityLimit(nominee4, award1, nominator1);
 
         Person nominator2 = new Nominator("Alex");
         Person nominee5 = new Nominee("Alex");
         nominator2.createYosAward(award1);
         nominee5.createYosAward(award1, nominee5);
+
+        Award award3 = new Award(-100);
+        nominee1.receiveAward(award3);
     }
 }

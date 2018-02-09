@@ -2,6 +2,7 @@ package com.company.nominator;
 
 
 import com.company.award.Award;
+import com.company.exceptions.SmallAwardAmountException;
 import com.company.nominee.Nominee;
 import com.company.person.Person;
 
@@ -25,16 +26,17 @@ public class Nominator extends Person {
         super(name, awardQuantityLimit, awardAmountLimit);
         this.numberOfGivenAwards = numberOfGivenAwards;
     }
-     @Override
-    public void receiveAward(Award award) {
-         if (award.getSoli() == 0.0) {
-             System.out.println("Award value calculated without soli: " + award.getValue());
-         }
-         else {
-             System.out.println("Error. Soli factor cannot be calculated for nominator" );
-         }
-         System.out.println("Nominator " + getName() + " gives award" );
-     }
+
+    @Override
+    public void receiveAward(Award award) throws SmallAwardAmountException{
+        if (award.getValue() >= 0) {
+            if (award.getSoli() == 0.0) {
+                System.out.println("Award value calculated without soli: " + award.getValue());
+            } else {
+                System.out.println("Error. Soli factor cannot be calculated for nominator" );
+            }
+        } else throw new SmallAwardAmountException("Nominator cannot give award with negative value");
+    }
 
     @Override
     public void createYosAward(Award award, Person nominee) {

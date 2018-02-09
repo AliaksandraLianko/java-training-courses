@@ -2,6 +2,7 @@ package com.company.nominee;
 
 
 import com.company.award.Award;
+import com.company.exceptions.SmallAwardAmountException;
 import com.company.person.Person;
 
 public class Nominee extends Person {
@@ -26,9 +27,14 @@ public class Nominee extends Person {
     }
 
     @Override
-    public void receiveAward(Award award) {
-        super.receiveAward(award);
-        System.out.println("Nominee " + getName() + " receives award" );
+    public void receiveAward(Award award){
+        try {
+            super.receiveAward(award);
+            System.out.println(getName() + " was nominated");
+        }
+        catch (SmallAwardAmountException ex) {
+            System.out.println("Attempt to create award with negative value - award is not created");
+        }
     }
 
     @Override
@@ -38,5 +44,7 @@ public class Nominee extends Person {
         return currentValue<=limit;
     }
 
-
+    public void printTestTest(Award award) {
+        System.out.println(award.getValue() + " : " + award.getSoli() + " - for nominee " + getName());
+    }
 }
