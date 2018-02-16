@@ -8,9 +8,12 @@ import com.company.person.Person;
 import com.company.utils.FormulaCalculationHelper;
 import com.company.utils.NominationHelper;
 
+import java.util.*;
+
 public class Main {
 
     public static void main(String[] args) throws SmallAwardAmountException {
+
         /**
          * Objects nominee, award, nominator, nominatorHelper and formulaCalculationHelper are created
          */
@@ -80,5 +83,25 @@ public class Main {
 
         Award award3 = new Award(-100);
         nominee1.receiveAward(award3);
+
+        ArrayList<Award> awards = NominationHelper.generateAwardList();
+        System.out.println("List of cash awards");
+        NominationHelper.printAwards(awards, "cash");
+        System.out.println("List of digital awards");
+        NominationHelper.printAwards(awards, "digital");
+        System.out.println("List of physical awards");
+        NominationHelper.printAwards(awards, "physical");
+        Set<String> set = new HashSet<String>();
+        for (Award award : awards) {
+            set.add(award.getType());
+        }
+        Iterator<String> iterator = set.iterator();
+        while (iterator.hasNext()) {
+        System.out.println("Award type: " + iterator.next());
+        }
+        }
+
+
+
     }
-}
+

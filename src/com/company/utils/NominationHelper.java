@@ -6,6 +6,10 @@ import com.company.nominator.Nominator;
 import com.company.nominee.Nominee;
 import com.company.person.Person;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class NominationHelper {
 
     /**
@@ -122,5 +126,35 @@ public class NominationHelper {
         }
         System.out.println("Award Amount limit is reached");
     }
+
+    /**
+     * List of 15 awards with different types is generated
+     * @return
+     */
+    public static ArrayList<Award> generateAwardList() {
+        ArrayList<Award> awards = new ArrayList<Award>();
+        for (int i = 0; i < 15; i++) {
+            String rest = "";
+            if (i%2==0) {
+                rest = "cash";
+            } else if (i%3==0){
+                rest = "digital";
+            } else {
+                rest = "physical";
+            }
+            Award award = (new Award(100 + i, "Legend " + rest, i));
+            awards.add(award);
+        }
+         return awards;
+    }
+
+    public static void printAwards(ArrayList<Award> awards, String type) {
+        for (Award award : awards) {
+            if (award.getType().contains(type)) {
+                System.out.println(award.toString());
+            }
+        }
+    }
+
 
 }
