@@ -98,6 +98,11 @@ public class Main {
         for (String aSet : set) {
             System.out.println("Award type: " + aSet);
         }
+
+        Iterator<String> iterator = set.iterator();
+        while (iterator.hasNext()) {
+            System.out.println("Award type: " + iterator.next());
+        }
     }
 
 
