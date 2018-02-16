@@ -61,10 +61,10 @@ public class Main {
         if (firstNominee != secondNominee) {
             System.out.println(nominee1.getName() + "'s award quantity " + firstNominee + " is not equal to " + nominee2.getName() + "'s award quantity " + secondNominee);
         }
-        if (firstNominee > secondNominee && firstNominee > thirdNominee){
+        if (firstNominee > secondNominee && firstNominee > thirdNominee) {
             System.out.println(nominee1.getName() + "'s award quantity " + firstNominee + " is the biggest ");
         }
-        if (firstNominee > secondNominee || firstNominee > thirdNominee){
+        if (firstNominee > secondNominee || firstNominee > thirdNominee) {
             System.out.println(nominee1.getName() + "'s award quantity " + firstNominee + " is not the smallest ");
         }
 
@@ -95,13 +95,11 @@ public class Main {
         for (Award award : awards) {
             set.add(award.getType());
         }
-        Iterator<String> iterator = set.iterator();
-        while (iterator.hasNext()) {
-        System.out.println("Award type: " + iterator.next());
+        for (String aSet : set) {
+            System.out.println("Award type: " + aSet);
         }
-        }
-
-
-
     }
+
+
+}
 
